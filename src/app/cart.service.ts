@@ -8,7 +8,9 @@ export class CartService {
   constructor(private http: HttpClient) {}
 
   getShippingPrices() {
-    this.http.get<{ type: string; price: number }>('/assets/shipping.json');
+    return this.http.get<{ type: string; price: number }[]>(
+      '/assets/shipping.json'
+    );
   }
   addToCart(product: Product) {
     this.items.push(product);
@@ -19,7 +21,8 @@ export class CartService {
   }
 
   clearCart() {
+    let items = this.items;
     this.items = [];
-    return this.items;
+    return items;
   }
 }
